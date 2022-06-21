@@ -1,11 +1,15 @@
-<?php include 'regloginlogic.php'; ?>
-<?php include 'head_section.php'; ?>
+<?php 
+
+include '../model/regloginlogic.php'; 
+// include 'includes/head_section.php'; 
+
+?>
 
 <title>Login Page</title>
 </head>
 <body>
     <div class='container'>
-        <?php include 'navbar.php' ?>
+        <?php include 'includes/navbar.php' ?>
         <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='post'>
             <br><br>
             <label for='username'>Username: </label><br>
@@ -17,6 +21,6 @@
             <input class='btn' type='submit' value='Login' name="login">
             <p>Not a registered user? <a href='register.php'>Register</a></p>
         </form>
-        <?php include 'footer.php' ?>
+        <?php include 'includes/footer.php' ?>
     </div>
 </body>

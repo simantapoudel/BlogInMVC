@@ -1,4 +1,4 @@
-<?php include 'config.php'; ?>
+<?php include '../config/config.php'; ?>
 
 <?php
 $usernameErr = $fnameErr = $lnameErr = $emailErr = $genderErr = $passwordErr = $password1Err  = "";

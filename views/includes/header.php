@@ -8,6 +8,6 @@
 	        <h1>Simanta's Blog</h1>
             <div class="whole-navbar">
                 <?php include 'navbar.php' ?>
-                <a class="btn" href="login.php">Login</a>
+                <a class="btn" href="views/login.php">Login</a>
             </div>
         </header>

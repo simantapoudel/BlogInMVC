@@ -1,11 +1,15 @@
-<?php include 'regloginlogic.php'; ?>
-<?php include 'head_section.php'; ?>
+<?php 
 
-<title>Login Page</title>
+include '../model/LoginRegister.model.php';
+// include 'includes/head_section.php'; 
+
+?>
+
+<title>Register Page</title>
 </head>
 <body>
     <div class='container'>
-        <?php include 'navbar.php' ?>
+        <?php include 'includes/navbar.php' ?>
         <form action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='post'>
             <label for='username'>Username: </label><br>
             <input type='text' name='username' id='username' placeholder='Enter your username' 
@@ -45,7 +49,7 @@
             <input class='btn' type='submit' value='Register' name="register">
             <p>Already a user? <a href="login.php">Login</a></p>
         </form>
-        <?php include 'footer.php'; ?>
+        <?php include 'includes/footer.php'; ?>
     </div>
 </body>
 
