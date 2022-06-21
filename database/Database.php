@@ -9,9 +9,8 @@ class Database
         $conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
         if ($conn->connect_error) {
             die("Connection failed " . $ocnn->connect_error);
-        } else {
-            echo "Connected";
         }
+        return $conn;
     }
 }
 
