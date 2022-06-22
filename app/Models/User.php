@@ -11,12 +11,12 @@ class User
     
     public function register($username, $first_name, $last_name, $email, $password)
     {  
-        $db = new Database();
+        
         $password = $password;  
-        $checkUser = $db->query("Select id from users where email='$email'");  
-        $result = $num_rows($checkUser);  
+        $checkIfUserIsRegistered = $dbObj->query("Select id from users where email='$email'"); 
+        $result = $checkIfUserIsRegistered->num_rows;  
         if ($result == 0) {  
-            $register = $conn->query("Insert into users (username, first_name, last_name, email, password) 
+            $register = $dbObj->query("Insert into users (username, first_name, last_name, email, password) 
                         values ('$username', '$first_name', '$last_name', '$email','$password')");
             return $register;  
         } else {  
@@ -27,14 +27,17 @@ class User
     public function login($email, $password) 
     {  
         $password = $password;  
-        $check = $db->query("Select * from users where email='$email' and password='$password'");  
-        $result = $num_rows($check);  
+        $checkUserInDb = $dbObj->query("Select * from users where email='$email' and password='$password'");  
+        $result = $checkUserInDb->num_rows; 
         if ($result == 1) {  
             $_SESSION['login'] = true;  
             $_SESSION['id'] = $data['id'];  
             return true;  
         } else {  
-            return false;  
+            return false; 
         }  
     }  
 }
+
+var_dump($dbObj);
+var_dump(APP_ROOT);

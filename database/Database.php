@@ -1,6 +1,6 @@
 <?php
 
-include '../config/config.php';
+// include '../config/config.php';
 
 class Database
 {
@@ -14,4 +14,4 @@ class Database
     }
 }
 
-// $dbObj = new Database();
+$dbObj = new Database();
