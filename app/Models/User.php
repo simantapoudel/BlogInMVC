@@ -1,6 +1,6 @@
 <?php
 
-include '../database/database.php';
+include APP_ROOT . '/database/database.php';
 
 class User  
 {  
@@ -28,13 +28,14 @@ class User
     {  
         $password = $password;  
         $checkUserInDb = $dbObj->query("Select * from users where email='$email' and password='$password'");  
+        $data = $checkUserInDb->fetch_array(MYSQLI_BOTH);
         $result = $checkUserInDb->num_rows; 
         if ($result == 1) {  
             $_SESSION['login'] = true;  
             $_SESSION['id'] = $data['id'];  
             return true;  
         } else {  
-            return false; 
+            return false;
         }  
     }  
 }

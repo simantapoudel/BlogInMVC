@@ -1,6 +1,6 @@
 <?php 
 
 require_once '../config/config.php';
-var_dump(APP_ROOT);
+include APP_ROOT . '/app/models/user.php';
 
 ?>
