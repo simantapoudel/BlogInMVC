@@ -1,13 +1,8 @@
-<?php include 'head_section.php'; ?>
+<?php include APP_ROOT . '/views/includes/head_section.php'; ?>
 <title>Personal Blog</title>
 </head> 
 
 <body>
-   <div class="container">   
-        <header>
-	        <h1>Simanta's Blog</h1>
-            <div class="whole-navbar">
-                <?php include 'navbar.php' ?>
-                <a class="btn" href="views/login.php">Login</a>
-            </div>
-        </header>
+   <?php include APP_ROOT . '/views/includes/navbar.php'; ?>
+
+   <h1>Simanta's Blog</h1>
