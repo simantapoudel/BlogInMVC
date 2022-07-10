@@ -1,10 +1,19 @@
 <?php
 
-namespace App\Controllers;
+namespace Blog\App\Controllers;
 
-use App\Models\Post;
+use Blog\App\Models\Post;
+use Exception;
 
 class PostController 
 {
-    
+    public function viewPosts()
+    {
+        try {
+            $post = new Post();
+            $post->view_post();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }

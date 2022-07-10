@@ -2,163 +2,142 @@
 
 namespace Blog\App\Models;
 
-use Blog\database\Database;
+use Blog\database\Connection;
+use Exception;
 
-class Post extends Database
-{
- 
-    public $postId;
-    public $postTitle;
-    public $post;
-    public $postAuthor;
-    public $datePosted;
-    
-    function __construct($inpostId=null, $inpostTitle=null, $inPost=null, $inAuthorId=null, $inDatePosted=null)
-    {
-        if (!empty($inpostId))
-        {
-            $this->postId = $inpostId;
-        }
-        if (!empty($inpostTitle))
-        {
-            $this->postTitle = $inpostTitle;
-        }
-        if (!empty($inPost))
-        {
-            $this->post = $inPost;
-        }
-    
-        if (!empty($inDatePosted))
-        {
-            $splitDate = explode("-", $inDatePosted);
-            $this->datePosted = $splitDate[1] . "/" . $splitDate[2] . "/" . $splitDate[0];
-        }
-    
-        if (!empty($inAuthorId))
-        {
-            $sql = "SELECT first_name, last_name FROM people WHERE postId = " . $inAuthorId;
-            $row = $this->connect()->query($sql)->fetch_assoc();
-            $this->postAuthor = $row["first_name"] . " " . $row["last_name"];
-        }
-    }
-
-    function add_post($postTitle, $post, $postAuthor = false) 
+class Post extends Connection
+{    
+    public function add_post(string $postTitle, string $postBody,int $postAuthorId)
     {
         try {
-            $sql = "INSERT INTO blog_posts (postTitle,post,postAuthor) VALUES ('$postTitle', '$post', '$postAuthor')";
+            $sql = "INSERT INTO posts (posts_title, posts_body, user_id)
+                     VALUES ('$postTitle', '$postBody', '$postAuthorId')";
             $result = $this->connect()->query($sql);
 
             if ($result->num_rows > 0) {
                 return true;
             }
             return false;
-
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
              echo $e->getMessage();
         }
     }
 
-    function delete_post($postId)
-     {
-        if (!is_numeric($postId) || empty($postId) || is_null($postId)) {
-            return false;
-        }
-        try {
-            $sql = "DELETE FROM posts WHERE postId = '$postId'";
-            $result = $this->connect()->query($sql);
-
-            if ($result->num_rows > 0) {
-                return true;
-            }
-
-            return false;
-
-        } catch(\Exception $e) {
-             echo $e->getMessage();
-        }
-    }
-
-    function get_all_posts() 
+    public function view_post()
     {
         try {
-            $sql = "SELECT postId, postTitle, post, datePosted, postAuthor FROM posts ORDER BY postId";
-            $result = $this->connect()->query($sql);
-            $row = $result->fetch_all();
-            return $row;
-
-        } catch(\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    function get_post_with_id($postId) 
-    {
-        try {
-            $sql = "SELECT postTitle, post, datePosted, postAuthor FROM posts WHERE postId = '$postId'";
-            $result = $this->connect()->query($sql);
-            $row = $result->fetch_assoc();
-            return $row;
-        } catch(\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    function post_exist($postId) 
-    {
-        try {
-            $sql = "SELECT * FROM posts WHERE postId = '$postId'";
-            $result = $this->connect()->query($sql);
-            $row = $result->fetch_assoc();
-            if (!$row) {
-                return false;
-            }
-            return true;
-
-        } catch(\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    function get_post($postId) 
-    {
-        try {
-            $sql = "SELECT postId, postTitle, post FROM posts WHERE postId = '$postId'";
-            $result = $this->connect()->query($sql);
-            $row = $result->fetch_assoc();
-            return $row;
-        } catch(\Exception $e) {
-            echo $e->getMessage();
-        }
-    }
-
-    function update_post($postId, $postTitle) 
-    {
-        try {
-            $sql = "UPDATE posts SET postTitle = '$postTitle', post = '$post' WHERE postId = '$postId'";
+            $sql = "SELECT  * from posts";
             $result = $this->connect()->query($sql);
             if ($result->num_rows > 0) {
-                return true;
+                while ($row = $result->fetch_assoc()) {
+                    echo "<h1>{$row['posts_title']}</h1>"
+                         ."<p>{$row['posts_body']}</p>"
+                         ."<span>Created_At: {$row['created_at']}</span>"
+                         ." " . "<span>Updated_At{$row['updated_at']}</span>";
+                }
             }
-            return false;
-        } catch(\Exception $e) {
-             echo $e->getMessage();
-        }
-    }
-
-    function post_belongs_to_user($postId) 
-    {
-        try {
-            $sql = "SELECT author FROM posts WHERE postId = '$postId'";
-            $result = $this->connect()->query($sql);
-            $row = $result->fetch_assoc();
-            if ($row['author'] == $_SESSION['login']) {
-               return true;
-            }
-            return false;
-
-        } catch(\Exception $e) {
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 
+    // function delete_post(int $postId)
+    //  {
+    //     try {
+    //         if (!empty($postId)) {
+    //             $sql = "DELETE FROM posts WHERE postId = '$postId'";
+    //             $result = $this->connect()->query($sql);
+    
+    //             if ($result->num_rows > 0) {
+    //                 return true;
+    //             }
+    //             return false;
+    //         }
+    //     } catch(Exception $e) {
+    //          echo $e->getMessage();
+    //     }
+    // }
+
+    // function get_all_posts() 
+    // {
+    //     try {
+    //         $sql = "SELECT postId, postTitle, post, datePosted, postAuthor FROM posts ORDER BY postId";
+    //         $result = $this->connect()->query($sql);
+    //         $row = $result->fetch_all();
+    //         return $row;
+
+    //     } catch(Exception $e) {
+    //         echo $e->getMessage();
+    //     }
+    // }
+
+    // function get_post_with_id($postId) 
+    // {
+    //     try {
+    //         $sql = "SELECT postTitle, post, datePosted, postAuthor FROM posts WHERE postId = '$postId'";
+    //         $result = $this->connect()->query($sql);
+    //         $row = $result->fetch_assoc();
+    //         return $row;
+    //     } catch(Exception $e) {
+    //         echo $e->getMessage();
+    //     }
+    // }
+
+    // function post_exist($postId) 
+    // {
+    //     try {
+    //         $sql = "SELECT * FROM posts WHERE postId = '$postId'";
+    //         $result = $this->connect()->query($sql);
+    //         $row = $result->fetch_assoc();
+    //         if (!$row) {
+    //             return false;
+    //         }
+    //         return true;
+
+    //     } catch(Exception $e) {
+    //         echo $e->getMessage();
+    //     }
+    // }
+
+    // function get_post($postId) 
+    // {
+    //     try {
+    //         $sql = "SELECT postId, postTitle, post FROM posts WHERE postId = '$postId'";
+    //         $result = $this->connect()->query($sql);
+    //         $row = $result->fetch_assoc();
+    //         return $row;
+    //     } catch(Exception $e) {
+    //         echo $e->getMessage();
+    //     }
+    // }
+
+    // function update_post($postId, $postTitle, $post) 
+    // {
+    //     try {
+    //         $sql = "UPDATE posts SET postTitle = '$postTitle', post = '$post' WHERE postId = '$postId'";
+    //         $result = $this->connect()->query($sql);
+    //         if ($result->num_rows > 0) {
+    //             return true;
+    //         }
+    //         return false;
+    //     } catch(Exception $e) {
+    //          echo $e->getMessage();
+    //     }
+    // }
+
+    // function post_belongs_to_user($postId) 
+    // {
+    //     try {
+    //         $sql = "SELECT author FROM posts WHERE postId = '$postId'";
+    //         $result = $this->connect()->query($sql);
+    //         $row = $result->fetch_assoc();
+    //         if ($row['author'] == $_SESSION['login']) {
+    //            return true;
+    //         }
+    //         return false;
+
+    //     } catch(Exception $e) {
+    //         echo $e->getMessage();
+    //     }
+    // }
 }

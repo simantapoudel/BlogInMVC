@@ -2,21 +2,13 @@
 
 namespace Blog\App\Models;
 
-include APP_ROOT . '/database/database.php';
+use Blog\Database\Connection;
 
-// use App\Database\Database;
-
-class User  
-{  
-    public function __construct() 
-    {  
-        // $db = new Database();
-        echo "IN user model";
-    }
-    
+class User extends Connection
+{   
 //     public function register($username, $first_name, $last_name, $email, $password)
 //     {  
-//         $password = $password;  
+//         $password = password_hash($password);  
 //         $checkIfUserIsRegistered = $dbObj->query("Select id from users where email='$email'"); 
 //         $result = $checkIfUserIsRegistered->num_rows;  
 //         if ($result == 0) {  

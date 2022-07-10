@@ -24,9 +24,25 @@
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" name="firstname" id="form3Example1c" class="form-control" />
+                      <label class="form-label" for="form3Example1c">First Name</label>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <input type="text" name="lastname" id="form3Example1c" class="form-control" />
+                      <label class="form-label" for="form3Example1c">Last Name</label>
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="email" name="cemail" id="form3Example3c" class="form-control" />
+                      <input type="email" name="email" id="form3Example3c" class="form-control" />
                       <label class="form-label" for="form3Example3c">Your Email</label>
                     </div>
                   </div>
@@ -42,7 +58,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="password" name="confirmPw" id="form3Example4cd" class="form-control" />
+                      <input type="password" name="confirmPassword" id="form3Example4cd" class="form-control" />
                       <label class="form-label" for="form3Example4cd">Repeat your password</label>
                     </div>
                   </div>

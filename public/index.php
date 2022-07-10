@@ -1,6 +1,7 @@
 <?php 
 
 require_once '../config/config.php'; //relative path
+require_once APP_ROOT . '/config/session.php';
 require_once APP_ROOT . '/vendor/autoload.php'; //absolute path
 
 use Blog\src\Application;
